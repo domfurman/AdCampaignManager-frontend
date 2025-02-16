@@ -3,18 +3,19 @@ import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {Campaign} from '../models/campaign';
 import {CreateCampaign} from '../models/create-campaign';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CampaignService {
-  basicTestUrl: string = 'http://localhost:8080';
+
   private campaignListSubject: BehaviorSubject<Campaign[]> = new BehaviorSubject<Campaign[]>([]);
 
   constructor(private http: HttpClient) { }
 
   getAllCampaigns(): void {
-    this.http.get<Campaign[]>(`${this.basicTestUrl}/api/get-all-campaigns`).subscribe({
+    this.http.get<Campaign[]>(`${environment.campaignApiUrl}/api/get-all-campaigns`).subscribe({
       next: (campaigns) => {
         this.campaignListSubject.next(campaigns);
       },
@@ -29,27 +30,27 @@ export class CampaignService {
   }
 
   addNewCampaign(campaign: CreateCampaign): Observable<CreateCampaign> {
-    return this.http.post<CreateCampaign>(`${this.basicTestUrl}/api/create-campaign`, campaign);
+    return this.http.post<CreateCampaign>(`${environment.campaignApiUrl}/api/create-campaign`, campaign);
   }
 
   deleteCampaign(id: number): Observable<Campaign> {
-    return this.http.delete<Campaign>(`${this.basicTestUrl}/api/delete-campaign/${id}`);
+    return this.http.delete<Campaign>(`${environment.campaignApiUrl}/api/delete-campaign/${id}`);
   }
 
   updateCampaign(id: number | undefined, updatedCampaign: CreateCampaign): Observable<Campaign> {
-    return this.http.put<Campaign>(`${this.basicTestUrl}/api/update-campaign/${id}`, updatedCampaign);
+    return this.http.put<Campaign>(`${environment.campaignApiUrl}/api/update-campaign/${id}`, updatedCampaign);
   }
 
   getCampaignById(id: number): Observable<Campaign> {
-    return this.http.get<Campaign>(`${this.basicTestUrl}/api/find-by-id/${id}`);
+    return this.http.get<Campaign>(`${environment.campaignApiUrl}/api/find-by-id/${id}`);
   }
 
   getCities(): Observable<string[]> {
-    return this.http.get<string[]>(`${this.basicTestUrl}/api/get-cities`);
+    return this.http.get<string[]>(`${environment.campaignApiUrl}/api/get-cities`);
   }
 
   getSuggestedKeywords(query: string): Observable<string[]> {
-    return this.http.get<string[]>(`${this.basicTestUrl}/api/keywords?query=${query}`);
+    return this.http.get<string[]>(`${environment.campaignApiUrl}/api/keywords?query=${query}`);
   }
 
 }

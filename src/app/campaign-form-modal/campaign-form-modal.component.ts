@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {FormControl, FormsModule} from '@angular/forms';
-import {Campaign} from '../models/campaign';
 import {CampaignService} from '../services/campaign.service';
 import {NgForOf, NgIf} from '@angular/common';
 import {CreateCampaign} from '../models/create-campaign';

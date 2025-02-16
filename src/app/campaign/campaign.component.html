@@ -2,6 +2,12 @@
   <h1>Simple Ad Campaign Manager</h1>
 </div>
 
+<h1 *ngIf="account">Balance: {{ account }}</h1>
+<div>
+  <input type="number" [(ngModel)]="depositAmount" placeholder="Enter amount">
+  <button (click)="depositMoney()">Make deposit</button>
+</div>
+
 <button class="btn-add-campaign" (click)="openDialog()">Add Campaign</button>
 
 <div *ngFor="let campaign of campaignList" class="campaign-item">

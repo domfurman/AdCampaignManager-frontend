@@ -4,22 +4,6 @@
     <label for="name">Campaign Name:</label>
     <input [(ngModel)]="campaign.name" id="name" name="name" required>
 
-<!--    <div>-->
-<!--      <label for="newKeyword">Enter Keyword:</label>-->
-<!--      <input [(ngModel)]="newKeyword" id="newKeyword" name="newKeyword" required>-->
-
-<!--      <button type="button" (click)="addKeyword()">Add keyword</button>-->
-
-<!--      <div *ngIf="keywordsTemporary.length > 0">-->
-<!--        <h3>Temporary Keywords:</h3>-->
-<!--        <ul>-->
-<!--          <li *ngFor="let keyword of keywordsTemporary; let i = index">-->
-<!--            {{ keyword }}-->
-<!--            <button type="button" (click)="removeKeyword(i)">Remove</button>-->
-<!--          </li>-->
-<!--        </ul>-->
-<!--      </div>-->
-<!--    </div>-->
     <div class="keyword-container">
       <label for="newKeyword">Enter Keyword:</label>
       <input [(ngModel)]="newKeywordSuggestion" id="newKeyword" name="newKeyword"
@@ -31,9 +15,7 @@
           {{ suggestion }}
         </li>
       </ul>
-
 <!--      <button type="button" (click)="addKeyword()">Add keyword</button>-->
-
       <div *ngIf="keywordsTemporary.length > 0">
         <h3>Temporary Keywords:</h3>
         <ul>
@@ -45,11 +27,11 @@
       </div>
     </div>
 
-    <label for="bidAmount">Bid Amount:</label>
+    <label for="bidAmount">Bid Amount (min. 50):</label>
     <input [(ngModel)]="campaign.bidAmount" type="number" id="bidAmount" name="bidAmount" required>
 
     <label for="campaignFund">Campaign Fund:</label>
-    <input [(ngModel)]="campaign.campaignFund" type="number" id="campaignFund" name="campaignFund" required>
+    <input [(ngModel)]="campaign.campaignFund" type="number" id="campaignFund" name="campaignFund" required [readonly]="isEditing">
 
     <label for="isCampaignActive">Is Active:</label>
     <input [(ngModel)]="campaign.isCampaignActive" type="checkbox" id="isCampaignActive" name="isCampaignActive">
