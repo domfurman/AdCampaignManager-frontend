@@ -53,7 +53,10 @@
       <div *ngIf="keywordsTemporary.length > 0">
         <h3>Temporary Keywords:</h3>
         <ul>
-          <li *ngFor="let keyword of keywordsTemporary">{{ keyword }}</li>
+          <li *ngFor="let keyword of keywordsTemporary; let i = index">
+            {{ keyword }}
+            <button type="button" (click)="removeKeyword(i)">Remove</button>
+          </li>
         </ul>
       </div>
     </div>
@@ -73,7 +76,6 @@
     <label for="radius">Radius:</label>
     <input [(ngModel)]="campaign.radius" type="number" id="radius" name="radius" required>
 
-    <!-- Zmieniony przycisk zależnie od trybu edycji -->
     <button type="submit">{{ isEditing ? 'Update Campaign' : 'Create Campaign' }}</button>
     <button type="button" (click)="close()">Cancel</button>
   </form>

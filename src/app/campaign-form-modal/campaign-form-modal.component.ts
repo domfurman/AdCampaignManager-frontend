@@ -30,8 +30,10 @@ export class CampaignFormModalComponent {
   }
 
   loadCampaign(campaignId: number): void {
+
     this.campaignService.getCampaignById(campaignId).subscribe((campaign) => {
       this.campaign = campaign;
+      this.keywordsTemporary = campaign.keywords;
     });
   }
 
@@ -63,6 +65,10 @@ export class CampaignFormModalComponent {
       this.keywordsTemporary.push(this.newKeyword.trim());
       this.newKeyword = '';
     }
+  }
+
+  removeKeyword(index: number): void {
+    this.keywordsTemporary.splice(index, 1);
   }
 
 }
