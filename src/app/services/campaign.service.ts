@@ -44,4 +44,12 @@ export class CampaignService {
     return this.http.get<Campaign>(`${this.basicTestUrl}/api/find-by-id/${id}`);
   }
 
+  getCities(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.basicTestUrl}/api/get-cities`);
+  }
+
+  getSuggestedKeywords(query: string): Observable<string[]> {
+    return this.http.get<string[]>(`${this.basicTestUrl}/api/keywords?query=${query}`);
+  }
+
 }

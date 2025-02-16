@@ -1,8 +1,8 @@
-<!--<div class="modal-content">-->
-<!--  <h2>Add New Campaign</h2>-->
-<!--  <form (ngSubmit)="save()">-->
-<!--    <label for="name">Campaign Name:</label>-->
-<!--    <input [(ngModel)]="campaign.name" id="name" name="name" required>-->
+<div class="modal-content">
+  <h2>{{ isEditing ? 'Update Campaign' : 'Add New Campaign' }}</h2>
+  <form (ngSubmit)="save()">
+    <label for="name">Campaign Name:</label>
+    <input [(ngModel)]="campaign.name" id="name" name="name" required>
 
 <!--    <div>-->
 <!--      <label for="newKeyword">Enter Keyword:</label>-->
@@ -13,42 +13,26 @@
 <!--      <div *ngIf="keywordsTemporary.length > 0">-->
 <!--        <h3>Temporary Keywords:</h3>-->
 <!--        <ul>-->
-<!--          <li *ngFor="let keyword of keywordsTemporary">{{ keyword }}</li>-->
+<!--          <li *ngFor="let keyword of keywordsTemporary; let i = index">-->
+<!--            {{ keyword }}-->
+<!--            <button type="button" (click)="removeKeyword(i)">Remove</button>-->
+<!--          </li>-->
 <!--        </ul>-->
 <!--      </div>-->
 <!--    </div>-->
-
-<!--    <label for="bidAmount">Bid Amount:</label>-->
-<!--    <input [(ngModel)]="campaign.bidAmount" type="number" id="bidAmount" name="bidAmount" required>-->
-
-<!--    <label for="campaignFund">Campaign Fund:</label>-->
-<!--    <input [(ngModel)]="campaign.campaignFund" type="number" id="campaignFund" name="campaignFund" required>-->
-
-<!--    <label for="isCampaignActive">Is Active:</label>-->
-<!--    <input [(ngModel)]="campaign.isCampaignActive" type="checkbox" id="isCampaignActive" name="isCampaignActive">-->
-
-<!--    <label for="town">Town:</label>-->
-<!--    <input [(ngModel)]="campaign.town" id="town" name="town" required>-->
-
-<!--    <label for="radius">Radius:</label>-->
-<!--    <input [(ngModel)]="campaign.radius" type="number" id="radius" name="radius" required>-->
-
-<!--    <button type="submit">Create campaign</button>-->
-<!--    <button type="button" (click)="close()">Cancel</button>-->
-<!--  </form>-->
-<!--</div>-->
-
-<div class="modal-content">
-  <h2>{{ isEditing ? 'Update Campaign' : 'Add New Campaign' }}</h2>
-  <form (ngSubmit)="save()">
-    <label for="name">Campaign Name:</label>
-    <input [(ngModel)]="campaign.name" id="name" name="name" required>
-
-    <div>
+    <div class="keyword-container">
       <label for="newKeyword">Enter Keyword:</label>
-      <input [(ngModel)]="newKeyword" id="newKeyword" name="newKeyword" required>
+      <input [(ngModel)]="newKeywordSuggestion" id="newKeyword" name="newKeyword"
+             (input)="fetchKeywordSuggestions()" required>
 
-      <button type="button" (click)="addKeyword()">Add keyword</button>
+      <ul *ngIf="keywordSuggestions.length > 0" class="suggestions">
+        <li *ngFor="let suggestion of keywordSuggestions"
+            (click)="selectKeyword(suggestion)">
+          {{ suggestion }}
+        </li>
+      </ul>
+
+<!--      <button type="button" (click)="addKeyword()">Add keyword</button>-->
 
       <div *ngIf="keywordsTemporary.length > 0">
         <h3>Temporary Keywords:</h3>
@@ -71,7 +55,9 @@
     <input [(ngModel)]="campaign.isCampaignActive" type="checkbox" id="isCampaignActive" name="isCampaignActive">
 
     <label for="town">Town:</label>
-    <input [(ngModel)]="campaign.town" id="town" name="town" required>
+    <select [(ngModel)]="campaign.town" id="town" name="town" required>
+      <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+    </select>
 
     <label for="radius">Radius:</label>
     <input [(ngModel)]="campaign.radius" type="number" id="radius" name="radius" required>

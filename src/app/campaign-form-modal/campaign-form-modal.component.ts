@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {FormsModule} from '@angular/forms';
+import {FormControl, FormsModule} from '@angular/forms';
 import {Campaign} from '../models/campaign';
 import {CampaignService} from '../services/campaign.service';
 import {NgForOf, NgIf} from '@angular/common';
@@ -13,11 +13,14 @@ import {CreateCampaign} from '../models/create-campaign';
   templateUrl: './campaign-form-modal.component.html',
   styleUrl: './campaign-form-modal.component.scss'
 })
-export class CampaignFormModalComponent {
+export class CampaignFormModalComponent implements OnInit {
   campaign: CreateCampaign = new CreateCampaign();
   newKeyword: string = '';
   keywordsTemporary: string[] = [];
   isEditing: boolean = false;
+  cities: string[] = [];
+  keywordSuggestions: string[] = [];
+  newKeywordSuggestion: string = '';
 
   constructor(
     private dialogRef: MatDialogRef<CampaignFormModalComponent>,
@@ -27,6 +30,12 @@ export class CampaignFormModalComponent {
       this.isEditing = true;
       this.loadCampaign(data.campaignId);
     }
+  }
+
+  ngOnInit() {
+    this.campaignService.getCities().subscribe(
+      (data) => this.cities = data,
+    )
   }
 
   loadCampaign(campaignId: number): void {
@@ -60,15 +69,32 @@ export class CampaignFormModalComponent {
     }
   }
 
-  addKeyword(): void {
-    if (this.newKeyword.trim()) {
-      this.keywordsTemporary.push(this.newKeyword.trim());
+  addKeyword(word: string): void {
+    if (word.trim()) {
+      this.keywordsTemporary.push(word.trim());
       this.newKeyword = '';
     }
   }
 
   removeKeyword(index: number): void {
     this.keywordsTemporary.splice(index, 1);
+  }
+
+  fetchKeywordSuggestions() {
+    if (this.newKeywordSuggestion.length > 1) {
+      console.log(`Fetching keywords for: ${this.newKeywordSuggestion}`);
+      this.campaignService.getSuggestedKeywords(this.newKeywordSuggestion)
+        .subscribe(suggestions => {
+          console.log('Received suggestions:', suggestions);
+          this.keywordSuggestions = suggestions
+        });
+    }
+  }
+
+  selectKeyword(suggestion: string) {
+    this.newKeywordSuggestion = suggestion;
+    this.addKeyword(suggestion);
+    this.keywordSuggestions = [];
   }
 
 }
