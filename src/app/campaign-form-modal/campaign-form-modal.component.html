@@ -53,6 +53,7 @@
 
     <label for="isCampaignActive">Is Active:</label>
     <input [(ngModel)]="campaign.isCampaignActive" type="checkbox" id="isCampaignActive" name="isCampaignActive">
+    <button type="button" (click)="toggleCampaignStatus()">Toggle Status</button>
 
     <label for="town">Town:</label>
     <select [(ngModel)]="campaign.town" id="town" name="town" required>

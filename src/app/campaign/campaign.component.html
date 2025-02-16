@@ -1,6 +1,14 @@
+<div>
+  <h1>Simple Ad Campaign Manager</h1>
+</div>
+
 <button class="btn-add-campaign" (click)="openDialog()">Add Campaign</button>
 
 <div *ngFor="let campaign of campaignList" class="campaign-item">
+  <h5 *ngIf="campaign.isCampaignActive; else inactive" style="color: #4CAF50">Active</h5>
+  <ng-template #inactive>
+    <h5 style="color: #f44336">Inactive</h5>
+  </ng-template>
   <h3>{{ campaign.name }}</h3>
   <p>Keywords: {{ campaign.keywords.join(', ') }}</p>
   <p>Bid Amount: {{ campaign.bidAmount }}</p>

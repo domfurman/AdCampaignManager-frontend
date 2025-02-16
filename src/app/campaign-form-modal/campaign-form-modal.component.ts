@@ -97,4 +97,9 @@ export class CampaignFormModalComponent implements OnInit {
     this.keywordSuggestions = [];
   }
 
+  toggleCampaignStatus(): void {
+    this.campaign.isCampaignActive = !this.campaign.isCampaignActive;
+    console.log('Campaign status changed to:', this.campaign.isCampaignActive);
+  }
+
 }

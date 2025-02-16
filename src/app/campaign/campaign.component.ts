@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {CampaignService} from '../services/campaign.service';
 import {Campaign} from '../models/campaign';
-import {NgForOf} from '@angular/common';
+import {NgForOf, NgIf} from '@angular/common';
 import {CampaignFormModalComponent} from '../campaign-form-modal/campaign-form-modal.component';
 import {MatDialog} from '@angular/material/dialog';
 
@@ -9,7 +9,8 @@ import {MatDialog} from '@angular/material/dialog';
   selector: 'app-campaign',
   standalone: true,
   imports: [
-    NgForOf
+    NgForOf,
+    NgIf
   ],
   templateUrl: './campaign.component.html',
   styleUrl: './campaign.component.scss',
