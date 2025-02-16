@@ -1,5 +1,4 @@
-export class Campaign {
-  id: number = 0;
+export class CreateCampaign {
   name: string = '';
   keywords: string[] = [];
   bidAmount: number = 0;

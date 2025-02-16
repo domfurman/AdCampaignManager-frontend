@@ -1,5 +1,12 @@
-<p>campaign works!</p>
-<button (click)="openDialog()">Add Campaign</button>
-<div *ngFor="let campaign of campaignList">
-  <h1>{{ campaign.name }}</h1>
+<button class="btn-add-campaign" (click)="openDialog()">Add Campaign</button>
+
+<div *ngFor="let campaign of campaignList" class="campaign-item">
+  <h3>{{ campaign.name }}</h3>
+  <p>Keywords: {{ campaign.keywords.join(', ') }}</p>
+  <p>Bid Amount: {{ campaign.bidAmount }}</p>
+  <p>Campaign Fund: {{ campaign.campaignFund }}</p>
+  <p>Town: {{ campaign.town }}</p>
+  <p>Radius: {{ campaign.radius }}</p>
+  <button (click)="deleteCampaign(campaign.id)" class="btn-delete">Delete Campaign</button>
+  <button (click)="openDialog(campaign.id)" class="btn-delete">Modify</button>
 </div>

@@ -21,20 +21,45 @@ export class CampaignComponent implements OnInit {
   constructor(private campaignService: CampaignService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    console.log('works')
-    this.campaignService.getAllCampaigns()
-      .subscribe((data) => {
-      this.campaignList = data;
-    })
+    this.loadCampaigns();
+    this.campaignService.getAllCampaigns();
   }
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(CampaignFormModalComponent);
+  openDialog(campaignId?: number): void {
+    const dialogRef = this.dialog.open(CampaignFormModalComponent, {
+      data: { campaignId }
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log('Nowa kampania:', result);
+        this.campaignService.getAllCampaigns();
+        this.loadCampaigns();
+        console.log('Kampania:', result);
       }
+    });
+  }
+
+  deleteCampaign(id: number): void {
+    const confirmation = confirm('Are you sure you want to delete this campaign?');
+
+    if (confirmation) {
+      console.log('Deleted campaign with ID:', id);
+      this.campaignService.deleteCampaign(id).subscribe(
+        () => {
+          this.campaignList = this.campaignList?.filter(campaign => campaign.id !== id);
+        },
+        (error) => {
+          console.error('Error deleting campaign:', error);
+        }
+      );
+    } else {
+      console.log('Campaign deletion was canceled');
+    }
+  }
+
+  loadCampaigns(): void {
+    this.campaignService.getCampaignList().subscribe((campaigns) => {
+      this.campaignList = campaigns;
     });
   }
 
