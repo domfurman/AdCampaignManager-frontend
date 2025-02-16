@@ -16,5 +16,8 @@ export class CampaignService {
     return this.http.get<Campaign[]>(`${this.basicTestUrl}/api/get-all-campaigns`);
   }
 
+  addNewCampaign(campaign: Campaign): Observable<Campaign> {
+    return this.http.post<Campaign>(`${this.basicTestUrl}/api/create-campaign`, campaign);
+  }
 
 }

@@ -1,5 +1,5 @@
 export class Campaign {
-  id: number = 0;
+  // id: number = 0;
   name: string = '';
   keywords: string[] = [];
   bidAmount: number = 0;

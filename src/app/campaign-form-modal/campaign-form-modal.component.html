@@ -1,6 +1,24 @@
 <div id="modal">
   <h2>Add campaign</h2>
-  <input [(ngModel)]="campaignName" placeholder="Campaign name">
+  <label for="name">Campaign name:</label>
+  <input [(ngModel)]="campaign.name" id="name" name="name">
+<!--  <label for="keywords">Keywords:</label>-->
+  <div>
+    <div *ngFor="let keyword of campaign.keywords; let i = index">
+      <input [(ngModel)]="campaign.keywords[i]" [name]="'keyword' + i" [id]="'keyword' + i">
+    </div>
+    <button (click)="addKeyword()">Add keyword</button>
+  </div>
+  <label for="bidAmount">Bid amount</label>
+  <input [(ngModel)]="campaign.bidAmount" id="bidAmount" name="bidAmount" type="number">
+  <label for="fund">Campaign fund</label>
+  <input [(ngModel)]="campaign.campaignFund" id="fund" name="fund" type="number">
+  <label for="active">Is active</label>
+  <input [(ngModel)]="campaign.isCampaignActive" id="active" name="active" type="text">
+  <label for="town">Town</label>
+  <input [(ngModel)]="campaign.town" id="town" name="town">
+  <label for="radius">Radius</label>
+  <input [(ngModel)]="campaign.radius" id="radius" name="radius" type="number">
   <button (click)="save()">Zapisz</button>
   <button (click)="close()">Anuluj</button>
 </div>
